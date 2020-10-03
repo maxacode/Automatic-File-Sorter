@@ -1,13 +1,12 @@
-#For now this program will move files into the directory of its extension. So a "File.TXT" will be moved to \txt\file.txt
-    #It also moves duplicate files to a \DuplicateFiles folder.
-    #Future it will detect a new file and move the new file to location
+# For now this program will move files into the directory of its extension. So a "File.TXT" will be moved to \txt\file.txt
+# It also moves duplicate files to a \DuplicateFiles folder.
+# Future it will detect a new file and move the new file to location
 
-#Importing necessecary files.
-import os
+# Importing necessecary files.
 import os.path
 from os import path
 
-#What this does:
+# What this does:
 print("""
 
   ______ _ _         _____            _
@@ -24,50 +23,52 @@ print("""
     *Alot of verbose output.
 
 #Features to Come:
+    *Event based ex: New Filed moved to this folder will be automatically sorted.
     *Logging all actions to file.
     *Configuration file that includes; Extensions/Files/Directories to Ignore.
     *Option to do Sub-Directories a certain level deep.
+    *Operation Stats
 
 
 #Instructions:
-    1. Put this Pyton File into the desired folder to be sorted - run it again if moved to a different folder.
+    1. Put this Pyton File into the desired folder to be sorted.
     2. Enter Extensions to be ignored once prompted as CSV.
     3. Sit back and enjoy
     4. Verify - I am human even though I did run this several hundred times.
 
 """)
-#Asking which extenstions to ignore
+# Asking which extenstions to ignore
 ignoreExt = input("Which extenstion do you want to ignore? ('',' ',py,ini) - Press enter for default: ")
 if ignoreExt == '':
-    ignoreExt = ['',' ','py','ini']
+    ignoreExt = ['', ' ', 'py', 'ini']
 else:
     ignoreExt = ignoreExt.split(',')
 print(ignoreExt)
 
-#Getting current directory of program executing.
+# Getting current directory of program executing.
 cwd = os.getcwd()
-#Getting all the files in the directory
+# Getting all the files in the directory
 allFiles = os.listdir(cwd)
 
-#starting the processing for all the files.
+# starting the processing for all the files.
 for x in allFiles:
     print("++++++++++STARTING HERE++++")
 
-    #Spliting the file name between name and extension
-    file = x.rsplit('.',1)
-    print(file)
+    # Spliting the file name between name and extension
+    file = x.rsplit('.', 1)
+    #print(file)
 
     try:
-        print("++++++assiging extesnion")
-        #Assinging variables of name and extesnion
+        #print("++++++assiging extesnion")
+        # Assinging variables of name and extesnion
         ext = file[1]
         name = file[0]
-        #print(name + " ++ " + ext )
-        #Starting the moving process but avoiding .py and empty file names.
+        # print(name + " ++ " + ext )
+        # Starting the moving process but avoiding .py and empty file names.
         if ext not in ignoreExt:
-            print("++++++checking if folder with ext name exists")
-            #Checking if folder exists and if not then it will create it.
-            isPath =  path.exists(ext)
+           # print("++++++checking if folder with ext name exists")
+            # Checking if folder exists and if not then it will create it.
+            isPath = path.exists(ext)
             if isPath == False:
                 print("makig extentin")
                 print(ext)
@@ -76,10 +77,10 @@ for x in allFiles:
             print("+++++Creating and moving file")
             print(file)
 
-            #Moving file to new location
-            newLoc = cwd +'\\' + ext +'\\' + x
-            print(newLoc)
-            os.rename(x,newLoc )
+            # Moving file to new location
+            newLoc = cwd + '\\' + ext + '\\' + x
+            #print(newLoc)
+            os.rename(x, newLoc)
             print("+++++++++++Done moving file to new location")
         else:
             print("------------THis file is in teh Bypass Ext list: {}".format(file))
@@ -87,7 +88,7 @@ for x in allFiles:
             continue
 
     except (IOError, Exception) as error:
-        #print(error.errno)
+        # print(error.errno)
         print("------------No Extension files")
         print(file)
         print(error)
@@ -95,7 +96,7 @@ for x in allFiles:
 
             #
             if 'Cannot create a file when that file already exists' in str(error):
-                #Creating a DuplicateFiles folder to move dups into into .
+                # Creating a DuplicateFiles folder to move dups into into .
                 isPath = path.exists('DuplicateFiles')
                 if isPath == False:
                     print("making DuplicateFiles folder")
@@ -109,7 +110,6 @@ for x in allFiles:
         except Exception as error:
             print("------Some Error")
             print(error)
-
 
 print("!!!!!!!!!!!!!!!!!!DONE!!!!!!!!!!!!!!!!!!")
 input('')
