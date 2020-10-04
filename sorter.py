@@ -3,12 +3,17 @@
 # Future it will detect a new file and move the new file to location
 
 # Importing necessecary files.
-import os.path
+import os.path,time
 from os import path
 
+#Changing CMD Size
+cmd = 'mode 85,40'
+os.system(cmd)
+#cmd = 'color 3E'
+#os.system(cmd)
+#print("\033[1;32;40m")
 # What this does:
-print("""
-
+print("""\033[1;32;40m
   ______ _ _         _____            _
  |  ____(_) |       / ____|          | |
  | |__   _| | ___  | (___   ___  _ __| |_ ___ _ __
@@ -38,10 +43,20 @@ print("""
 
 """)
 # Asking which extenstions to ignore
-ignoreExt = input("Which extenstion do you want to ignore? ('',' ',py,ini,gitignore) - Press enter for default: ")
-ignoreExt = ['', ' ', 'py', 'ini', 'gitignore'] if ignoreExt == '' else ignoreExt.split(',')
-print(ignoreExt)
+ignoreExt = input("Which extenstion do you want to ignore? ('',' ',py,ini)? \n       Press enter for default: ")
+ignoreExt = ['', ' ', 'py', 'ini', 'gitignore','md','idea'] if ignoreExt == '' else ignoreExt.split(',')
+print(f"\nIgnoring these extensionts: {ignoreExt}\n")
 
+while True:
+    keepGoing = input("Are you sure you want to continue(y/n): ")
+    if keepGoing == 'y':
+        break
+    elif keepGoing == 'n':
+        print("Exiting in 5 seconds")
+        time.sleep(5)
+        quit()
+    else:
+        pass
 # Getting current directory of program executing.
 cwd = os.getcwd()
 # Getting all the files in the directory

@@ -14,3 +14,7 @@ ext = 'testfolder'
 isPath = path.exists(ext)
 print(isPath)
 os.mkdir(ext) if isPath == False else print("Folder Exists")
+
+ignoreExt = input("Which extenstion do you want to ignore? ('',' ',py,ini,gitignore,md) - Press enter for default: ")
+ignoreExt = ['', ' ', 'py', 'ini', 'gitignore','md'] if ignoreExt == '' else ignoreExt.split(',')
+print(f"\nIgnoring these extensionts: {ignoreExt}\n")
