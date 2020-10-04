@@ -38,11 +38,8 @@ print("""
 
 """)
 # Asking which extenstions to ignore
-ignoreExt = input("Which extenstion do you want to ignore? ('',' ',py,ini) - Press enter for default: ")
-if ignoreExt == '':
-    ignoreExt = ['', ' ', 'py', 'ini']
-else:
-    ignoreExt = ignoreExt.split(',')
+ignoreExt = input("Which extenstion do you want to ignore? ('',' ',py,ini,gitignore) - Press enter for default: ")
+ignoreExt = ['', ' ', 'py', 'ini', 'gitignore'] if ignoreExt == '' else ignoreExt.split(',')
 print(ignoreExt)
 
 # Getting current directory of program executing.
@@ -69,10 +66,7 @@ for x in allFiles:
            # print("++++++checking if folder with ext name exists")
             # Checking if folder exists and if not then it will create it.
             isPath = path.exists(ext)
-            if isPath == False:
-                print("makig extentin")
-                print(ext)
-                os.mkdir(ext)
+            os.mkdir(ext) if isPath == False else print("Already Exists")
 
             print("+++++Creating and moving file")
             print(file)
@@ -84,7 +78,6 @@ for x in allFiles:
             print("+++++++++++Done moving file to new location")
         else:
             print("------------THis file is in teh Bypass Ext list: {}".format(file))
-            print(file)
             continue
 
     except (IOError, Exception) as error:
@@ -93,14 +86,11 @@ for x in allFiles:
         print(file)
         print(error)
         try:
-
-            #
+            #If we get an error that says "File already Exits" we do this
             if 'Cannot create a file when that file already exists' in str(error):
                 # Creating a DuplicateFiles folder to move dups into into .
                 isPath = path.exists('DuplicateFiles')
-                if isPath == False:
-                    print("making DuplicateFiles folder")
-                    os.mkdir('DuplicateFiles')
+                os.mkdir('DuplicateFiles') if isPath == False else print(" 'DuplicateFiles' Already Exists")
                 print("THis is a duplicate file  -- Moving it")
                 newLoc = cwd + '\\' + 'DuplicateFiles' + '\\' + x
                 print(newLoc)
