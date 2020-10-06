@@ -47,8 +47,9 @@ ignoreExt = input("Which extenstion do you want to ignore? ('',' ',py,ini)? \n  
 ignoreExt = ['', ' ', 'py', 'ini', 'gitignore','md','idea'] if ignoreExt == '' else ignoreExt.split(',')
 print(f"\nIgnoring these extensionts: {ignoreExt}\n")
 
+#Asking user if they want to continue
 while True:
-    keepGoing = input("Are you sure you want to continue(y/n): ")
+    keepGoing = input("This may or may not mess up your folder! \n Are you sure you want to continue(y/n) : ")
     if keepGoing == 'y':
         break
     elif keepGoing == 'n':
